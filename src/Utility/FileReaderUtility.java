@@ -6,13 +6,13 @@
 
 package Utility;
 
+import static Utility.DebugFuncs.M2C;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+
 
 /**
  *
@@ -66,16 +66,21 @@ public class FileReaderUtility {
             BufferedReader brFile = new BufferedReader(new FileReader(readFile));
             
             this.setFileName(readFile.getName());
+            M2C("File Set : " + this.getFileName());
             this.FileStore = new ArrayList();
             while ((readLine = brFile.readLine()) != null) {
                 this.FileStore.add(readLine);
             }
+            
+            
         }
         catch(Exception ex)
         {
             //Exception Handling
+            M2C(ex.getMessage());
+            return null;
         }
         
-        return null;
+        return this.FileStore;
     }
 }
