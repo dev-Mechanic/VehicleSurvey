@@ -24,11 +24,11 @@ public class VehicleRecord {
     int direction;
     double distanceFromLastCar;
     
-    public VehicleRecord(ArrayList<String> sensTS,int dayRef)
+    public VehicleRecord(ArrayList<String> sensTS,int dayRef,Calendar startFrom)
     {
         sensorTimeStamp = sensTS;
         timeOfDay  = Calendar.getInstance();
-        timeOfDay.set(timeOfDay.get(Calendar.YEAR), timeOfDay.get(Calendar.MONTH), timeOfDay.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
+        timeOfDay.set(startFrom.get(Calendar.YEAR), startFrom.get(Calendar.MONTH), startFrom.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
         timeOfDay.add(Calendar.MILLISECOND, Integer.parseInt(sensTS.get(0).substring(1)));
         timeOfDay.add(Calendar.DAY_OF_MONTH, dayRef);
         

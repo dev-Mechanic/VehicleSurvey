@@ -17,4 +17,10 @@ public class DebugFuncs {
         System.out.println(msg);
     }
     
+    public static void M2S(String msg)
+    {
+        System.out.print(msg);
+    }
+    
+    
 }

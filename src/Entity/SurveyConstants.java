@@ -18,6 +18,6 @@ public class SurveyConstants {
     public static int SecondToHourConversion = 3600;
     public static int SecondToMSEC = 1000;
     public static int MinuteToSec = 60;
-    //public static int AvgExpectedSpeed = 1; // 60Kmph -- 1km per minute
+    public static int ExpectedSpeed = 60; // 60Kmph -- 1km per minute
     
 }

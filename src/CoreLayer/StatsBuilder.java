@@ -25,6 +25,7 @@ public class StatsBuilder {
     {
         Calendar timeStampHolder = Calendar.getInstance();
         double estSpeedHolder = 0;
+        boolean flagA=false,flagB=false;
         StatsSet set = new StatsSet();
         
         set.CountDirA = 0;
@@ -34,12 +35,24 @@ public class StatsBuilder {
         set.AvgDistanceBtwCars = 0;
         set.AvgDistanceBtwCarsDirA = 0;
         set.AvgDistanceBtwCarsDirB = 0;
+        set.CountInfringementsDirA = 0;
+        set.CountInfringementsDirB = 0;
         
         if(list.size()>0)
         {
-            set.MaxEstSpeed = list.get(0).getEstSpeed();
-            set.MinEstSpeed = set.MaxEstSpeed;
             
+            if(list.get(0).direction() == SurveyConstants.GroupDirectionA)
+            {
+                set.MaxEstSpeedA = list.get(0).getEstSpeed();
+                set.MinEstSpeedA = list.get(0).getEstSpeed();
+                flagA = true;
+            }
+            else if(list.get(0).direction() == SurveyConstants.GroupDirectionB)
+            {
+                set.MaxEstSpeedB = list.get(0).getEstSpeed();
+                set.MinEstSpeedB = list.get(0).getEstSpeed();
+                flagB = true;
+            }
 
 
             for(VehicleRecord vr : list)
@@ -48,22 +61,66 @@ public class StatsBuilder {
                 {
                     set.CountDirA++;
                     set.AvgSpeedDirA += vr.getEstSpeed();
+                    if(vr.getEstSpeed()> SurveyConstants.ExpectedSpeed)
+                    {
+                        set.CountInfringementsDirA++;
+                    }
+                    
+                    
+                    if(flagA)
+                    {
+                        if(vr.getEstSpeed() > set.MaxEstSpeedA)
+                        {
+                            set.MaxEstSpeedA = vr.getEstSpeed();
+                        }
+                        
+                        if(vr.getEstSpeed() < set.MinEstSpeedA)
+                        {
+                            set.MinEstSpeedA = vr.getEstSpeed();
+                        }
+                    }
+                    else
+                    {
+                        set.MaxEstSpeedA = list.get(0).getEstSpeed();
+                        set.MinEstSpeedA = list.get(0).getEstSpeed();
+                        flagA = true;
+                    }
+                    
                 }
                 else if(vr.direction() == SurveyConstants.GroupDirectionB)
                 {
                     set.CountDirB++;
                     set.AvgSpeedDirB += vr.getEstSpeed();
+                    
+                    if(vr.getEstSpeed()> SurveyConstants.ExpectedSpeed)
+                    {
+                        set.CountInfringementsDirB++;
+                    }
+                    
+                    
+                    if(flagB)
+                    {
+                        if(vr.getEstSpeed() > set.MaxEstSpeedB)
+                        {
+                            set.MaxEstSpeedB = vr.getEstSpeed();
+                        }
+                        
+                        if(vr.getEstSpeed() < set.MinEstSpeedB)
+                        {
+                            set.MinEstSpeedB = vr.getEstSpeed();
+                        }
+                    }
+                    else
+                    {
+                        set.MaxEstSpeedB = list.get(0).getEstSpeed();
+                        set.MinEstSpeedB = list.get(0).getEstSpeed();
+                        flagB = true;
+                    }
+                    
+                    
                 }
 
-                if(vr.getEstSpeed() > set.MaxEstSpeed)
-                {
-                    set.MaxEstSpeed = vr.getEstSpeed();
-                }
-
-                if(vr.getEstSpeed() < set.MinEstSpeed)
-                {
-                    set.MinEstSpeed = vr.getEstSpeed();
-                }
+                
 
                 if(list.indexOf(vr)>0)
                 {
@@ -109,6 +166,9 @@ public class StatsBuilder {
             set.AvgDistanceBtwCarsDirA = set.AvgDistanceBtwCarsDirA/Double.parseDouble(String.valueOf(set.CountDirA));
             set.AvgDistanceBtwCarsDirB = set.AvgDistanceBtwCarsDirB/Double.parseDouble(String.valueOf(set.CountDirB));
             
+            
+            
+            
             return set;
         }
         else
@@ -136,7 +196,7 @@ public class StatsBuilder {
                 holder = Builder(workSet);
 
                 grpTo.add(Calendar.MINUTE, groupMinutes);
-                M2C(grpFrom.getTime().toString() + " To " + grpTo.getTime().toString() + "----- GC " + groupCount);
+                //M2C(grpFrom.getTime().toString() + " To " + grpTo.getTime().toString() + "----- GC " + groupCount);
                 holder.GroupTag = grpFrom.getTime().toString() + " To " + grpTo.getTime().toString();
                 stats.add(holder);
                 groupCount++;
@@ -150,7 +210,7 @@ public class StatsBuilder {
         //M2C("Remaining Set : " + workSet.size());
         holder = Builder(workSet);
         grpTo.add(Calendar.MINUTE, groupMinutes);
-        M2C(grpFrom.getTime().toString() + " To " + grpTo.getTime().toString() + "-----" + startAt.getTime().toString() + " GC " + groupCount);
+        //M2C(grpFrom.getTime().toString() + " To " + grpTo.getTime().toString() + "-----" + startAt.getTime().toString() + " GC " + groupCount);
         holder.GroupTag = grpFrom.getTime().toString() + " To " + grpTo.getTime().toString();
         stats.add(holder);
         groupCount++;

@@ -1,0 +1,8 @@
+Args : 1
+File Set : input stats.txt
+Group : null		AvgSpeed = 63	MaxSpeed = 106	MinSpeed = 32	Avg Speed in Dir A = 64	Avg Speed in Dir B = 63	Count in Dir A = 11096	Count in Dir B = 11276	Avg Dist Between Cars in Dir A = 0.320299313628454	Avg Dist Between Cars in Dir B = 0.3590849946011978	Avg Dist Between Cars = 0.33984818447811693	Total Count of Cars = 22372
+ Total Count of Cars 22372
+ Speed Stats  : Max OverAll 106.0, Min OverAll 32.0
+ Max Total Infringements in Dir A : 7114 violations. 
+ Max Total Infringements in Dir B : 7276 violations. 
+ Max Total Infringements : 14390 violations. 

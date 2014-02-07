@@ -18,7 +18,7 @@ import java.util.Date;
  */
 public class SurveyParser {
     
-    public static ArrayList<VehicleRecord> parseSurvey(ArrayList<String> survey)
+    public static ArrayList<VehicleRecord> parseSurvey(ArrayList<String> survey,Calendar startFrom)
     {
         if(survey.size()>0)
         {
@@ -38,9 +38,10 @@ public class SurveyParser {
 
                     //M2C(survey.get(i) + " : " + survey.get(i+1) + " :\t" + msAtT + " : " + msAtTp1);
                     
+                   
                     if ( msAtTp1 < msAtT)
                     {
-                        M2C("InParse : Day Change : " + survey.get(i) + " :" + msAtT + " : " + msAtTp1);
+                        //M2C("InParse : Day Change : " + survey.get(i) + " :" + msAtT + " : " + msAtTp1);
                         dayCount++;
                         
                     }
@@ -72,7 +73,7 @@ public class SurveyParser {
                         i += 3;
                     }
                     
-                    vehicleSet.add(new VehicleRecord(parseSet,dayCount));
+                    vehicleSet.add(new VehicleRecord(parseSet,dayCount,startFrom));
                     
                     
                 }
